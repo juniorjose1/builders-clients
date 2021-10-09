@@ -1,25 +1,25 @@
 package br.com.builders.apiclients.controller.dto;
 
-import org.springframework.data.domain.Page;
-
 import br.com.builders.apiclients.model.Client;
 import br.com.builders.apiclients.model.Gender;
 import br.com.builders.apiclients.util.ClientUtils;
 
-public class ClientDto {
+public class ClientDetailDto {
 
 	private Long id;
 	private String name;
+	private String cpf;
 	private Integer age;
 	private Gender gender;
-	private AddressDto addressDto;
-	
-	public ClientDto(Client client) {
+	private AddressDetailDto address;
+
+	public ClientDetailDto(Client client) {
 		this.id = client.getId();
 		this.name = client.getName();
+		this.cpf = client.getCpf();
 		this.age = ClientUtils.convertToAge(client.getBirthDate());
 		this.gender = client.getGender();
-		this.addressDto = new AddressDto(client.getAddress().getCountry(), client.getAddress().getCity());
+		this.address = new AddressDetailDto(client.getAddress());
 	}
 
 	public Long getId() {
@@ -30,6 +30,10 @@ public class ClientDto {
 		return name;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
+
 	public Integer getAge() {
 		return age;
 	}
@@ -38,12 +42,8 @@ public class ClientDto {
 		return gender;
 	}
 
-	public AddressDto getAddressDto() {
-		return addressDto;
-	}
-	
-	public static Page<ClientDto> toDto(Page<Client> client) {
-		return client.map(ClientDto::new);
+	public AddressDetailDto getAddress() {
+		return address;
 	}
 
 }
