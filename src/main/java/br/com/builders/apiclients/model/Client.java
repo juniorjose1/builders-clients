@@ -28,21 +28,18 @@ public class Client {
 
 	@Embedded
 	private Address address;
-	
-	public Client() { }
-	
+
+	public Client() {
+	}
+
 	public Client(ClientForm clientForm) {
 		this.name = clientForm.getName();
 		this.cpf = clientForm.getCpf();
 		this.birthDate = clientForm.getBirthDate();
 		this.gender = clientForm.getGender();
-		this.address = new Address(
-				clientForm.getAddress().getCity(),
-				clientForm.getAddress().getStreet(),
-				clientForm.getAddress().getNumber(),
-				clientForm.getAddress().getDistrict(),
-				clientForm.getAddress().getCep(),
-				clientForm.getAddress().getCountry());
+		this.address = new Address(clientForm.getAddress().getCity(), clientForm.getAddress().getStreet(),
+				clientForm.getAddress().getNumber(), clientForm.getAddress().getDistrict(),
+				clientForm.getAddress().getCep(), clientForm.getAddress().getCountry());
 	}
 
 	public Long getId() {
@@ -84,9 +81,13 @@ public class Client {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	
+
 	public Address getAddress() {
 		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override

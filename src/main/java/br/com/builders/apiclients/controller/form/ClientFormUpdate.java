@@ -2,21 +2,17 @@ package br.com.builders.apiclients.controller.form;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotEmpty;
-
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.builders.apiclients.model.Gender;
 
-public class ClientForm {
+public class ClientFormUpdate {
 	
-	@NotEmpty
 	@Length(min = 3)
 	private String name;
 	
-	@NotEmpty
 	private String cpf;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")

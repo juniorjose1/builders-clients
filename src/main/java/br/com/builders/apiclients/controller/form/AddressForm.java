@@ -1,5 +1,7 @@
 package br.com.builders.apiclients.controller.form;
 
+import br.com.builders.apiclients.model.Address;
+
 public class AddressForm {
 
 	private String city;
@@ -55,6 +57,10 @@ public class AddressForm {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public Address toAddress() {
+		return new Address(this.city, this.street, this.number, this.district, this.cep, this.country);
 	}
 
 }
