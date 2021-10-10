@@ -12,14 +12,14 @@ public class ClientDto {
 	private String name;
 	private Integer age;
 	private Gender gender;
-	private AddressDto addressDto;
+	private AddressDto address;
 	
 	public ClientDto(Client client) {
 		this.id = client.getId();
 		this.name = client.getName();
 		this.age = ClientUtils.convertToAge(client.getBirthDate());
 		this.gender = client.getGender();
-		this.addressDto = new AddressDto(client.getAddress().getCountry(), client.getAddress().getCity());
+		this.address = new AddressDto(client.getAddress().getCountry(), client.getAddress().getCity());
 	}
 
 	public Long getId() {
@@ -38,8 +38,8 @@ public class ClientDto {
 		return gender;
 	}
 
-	public AddressDto getAddressDto() {
-		return addressDto;
+	public AddressDto getAddress() {
+		return address;
 	}
 	
 	public static Page<ClientDto> toDto(Page<Client> client) {
