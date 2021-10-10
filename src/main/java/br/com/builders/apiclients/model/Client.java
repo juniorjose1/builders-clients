@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.builders.apiclients.controller.form.ClientForm;
+
 @Entity
 public class Client {
 
@@ -26,6 +28,22 @@ public class Client {
 
 	@Embedded
 	private Address address;
+	
+	public Client() { }
+	
+	public Client(ClientForm clientForm) {
+		this.name = clientForm.getName();
+		this.cpf = clientForm.getCpf();
+		this.birthDate = clientForm.getBirthDate();
+		this.gender = clientForm.getGender();
+		this.address = new Address(
+				clientForm.getAddress().getCity(),
+				clientForm.getAddress().getStreet(),
+				clientForm.getAddress().getNumber(),
+				clientForm.getAddress().getDistrict(),
+				clientForm.getAddress().getCep(),
+				clientForm.getAddress().getCountry());
+	}
 
 	public Long getId() {
 		return id;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.builders.apiclients.controller.dto.ClientDetailDto;
 import br.com.builders.apiclients.controller.dto.ClientDto;
+import br.com.builders.apiclients.controller.form.ClientForm;
 import br.com.builders.apiclients.model.Client;
 import br.com.builders.apiclients.repository.ClientRepository;
 import br.com.builders.apiclients.specification.ClientSpecification;
@@ -35,6 +36,12 @@ public class ClientService {
 		Page<Client> clients = repository.findAll(Specification.where(ClientSpecification.findByAttribute(attribute, value)),page);
 		
 		return ClientDto.toDto(clients);
+	}
+	
+	public Client save(ClientForm clientForm) {
+		Client client = new Client(clientForm);
+		
+		return repository.save(client);
 	}
 	
 	/*public ClientDetail findById(Long id) {
