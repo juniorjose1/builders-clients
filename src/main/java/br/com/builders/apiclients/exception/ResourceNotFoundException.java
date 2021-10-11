@@ -7,7 +7,7 @@ public class ResourceNotFoundException extends RuntimeException implements INotF
 	private String message;
 	
 	public ResourceNotFoundException() {
-		this.message = "No records found";
+		this.message = "No records found.";
 	}
 
 	public String getMessage() {

@@ -2,13 +2,17 @@ package br.com.builders.apiclients.controller;
 
 import java.net.URI;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,16 +39,19 @@ public class ClientController {
 	private ClientService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<ClientDto>> findAll(Pageable page){
+	@Cacheable(value = "allClients")
+	public ResponseEntity<Page<ClientDto>> findAll(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable page){
 		return ResponseEntity.ok(service.findAll(page));
 	}
 	
 	@GetMapping("/{id}")
+	@Cacheable(value = "detailClient")
 	public ResponseEntity<ClientDetailDto> findById(@PathVariable Long id){
 		return ResponseEntity.ok(service.findById(id));
 	}
 	
 	@GetMapping("/search")
+	@Cacheable(value = "searchClient")
 	public ResponseEntity<Page<ClientDto>> findByAttribute(@RequestParam(required = true) String attribute, 
 											@RequestParam(required = true) String value, Pageable page){
 		return ResponseEntity.ok(service.findByAttribute(attribute, value, page));
@@ -52,6 +59,7 @@ public class ClientController {
 	
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "allClients", allEntries = true)
 	public ResponseEntity<ClientDetailDto> save(@RequestBody @Valid ClientForm clientForm, UriComponentsBuilder builder){
 		Client client = service.save(clientForm);
 		URI uri = builder.path("/clients/{id}").buildAndExpand(client.getId()).toUri();
@@ -61,6 +69,7 @@ public class ClientController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = {"allClients", "searchClient", "detailClient"}, allEntries = true)
 	public ResponseEntity<?> update(@RequestBody @Valid ClientFormUpdate clientFormUpdate, @PathVariable Long id){
 		service.update(id, clientFormUpdate);
 		
@@ -69,6 +78,7 @@ public class ClientController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = {"allClients", "searchClient", "detailClient"}, allEntries = true)
 	public ResponseEntity<?> deleteById(@PathVariable Long id){
 		service.deleteById(id);
 		

@@ -13,6 +13,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -45,6 +46,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 		body.put("timestamp", LocalDateTime.now().format(formatter));
 
 		return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<?> authenticationException(){
+		Map<String, String> body = new HashMap<>();
+		body.put("Message:", "Invalid credentials.");
+		
+		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
 
 }

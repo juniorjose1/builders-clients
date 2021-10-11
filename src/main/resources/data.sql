@@ -69,3 +69,5 @@ name
 'FEMALE',
 'Gabriela Martins'
 );
+
+insert into user_api (login, password) values ('alexandre', '$2a$10$bYWP9dfI/RXXStnuLmoqCOEzAX1aJ7nGAEQiD71yoSvOFYPTxsItC');
