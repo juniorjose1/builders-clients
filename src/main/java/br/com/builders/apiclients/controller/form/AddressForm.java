@@ -10,6 +10,18 @@ public class AddressForm {
 	private String district;
 	private String country;
 	private String cep;
+	
+	public AddressForm() {
+	}
+
+	public AddressForm(String city, String street, Integer number, String district, String country, String cep) {
+		this.city = city;
+		this.street = street;
+		this.number = number;
+		this.district = district;
+		this.country = country;
+		this.cep = cep;
+	}
 
 	public String getCity() {
 		return city;

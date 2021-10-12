@@ -24,6 +24,18 @@ public class ClientForm {
 	
 	private Gender gender;
 	private AddressForm address = new AddressForm();
+	
+	public ClientForm() {
+	}
+
+	public ClientForm(@NotEmpty @Length(min = 3) String name, @NotEmpty String cpf, LocalDate birthDate, Gender gender,
+			AddressForm address) {
+		this.name = name;
+		this.cpf = cpf;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.address = address;
+	}
 
 	public String getName() {
 		return name;

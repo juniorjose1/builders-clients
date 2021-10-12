@@ -67,24 +67,5 @@ public class ClientService {
 		client.orElseThrow(() -> new ClientNotFoundException(id));
 		repository.deleteById(id);
 	}
-	
-	/*public ClientDetail findById(Long id) {
-		clientRepository.findById(id);
-	}
-	
-	public Client save(ClientForm form) {
-		Client client = form.toClient();
-		return clientRepository.save(client);
-	}
-	
-	public void update(Long id, ClientForm form) {
-		
-	}
-	
-	public void deleteById(Long id) {
-		clientRepository.deleteById(id);
-	}*/
-	
-	
 
 }
