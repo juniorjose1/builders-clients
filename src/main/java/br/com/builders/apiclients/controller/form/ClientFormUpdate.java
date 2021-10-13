@@ -19,7 +19,7 @@ public class ClientFormUpdate {
 	private LocalDate birthDate;
 	
 	private Gender gender;
-	private AddressForm address = new AddressForm();
+	private AddressForm address;
 
 	public String getName() {
 		return name;

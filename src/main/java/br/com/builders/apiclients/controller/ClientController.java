@@ -30,6 +30,9 @@ import br.com.builders.apiclients.controller.form.ClientForm;
 import br.com.builders.apiclients.controller.form.ClientFormUpdate;
 import br.com.builders.apiclients.model.Client;
 import br.com.builders.apiclients.service.ClientService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/clients")
@@ -38,9 +41,17 @@ public class ClientController {
 	@Autowired
 	private ClientService service;
 	
+	@ApiImplicitParams({
+	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
+	            value = "Page to be loaded", defaultValue = "0"),
+	    @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+	            value = "Number of records", defaultValue = "5"),
+	    @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+	            value = "Ordering of records(attribute,desc ou asc)")
+	})
 	@GetMapping
 	@Cacheable(value = "allClients")
-	public ResponseEntity<Page<ClientDto>> findAll(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable page){
+	public ResponseEntity<Page<ClientDto>> findAll(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) @ApiIgnore Pageable page){
 		return ResponseEntity.ok(service.findAll(page));
 	}
 	

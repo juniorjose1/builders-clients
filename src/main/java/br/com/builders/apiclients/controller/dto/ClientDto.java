@@ -12,7 +12,7 @@ public class ClientDto {
 	private String name;
 	private Integer age;
 	private Gender gender;
-	private AddressDto address;
+	private AddressDto address = new AddressDto();
 	
 	public ClientDto(Client client) {
 		this.id = client.getId();
