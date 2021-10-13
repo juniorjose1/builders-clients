@@ -4,7 +4,7 @@
 API REST que representa um MVP de cadastro de clientes, em que é possível criar, editar, listar, buscar e atualizar os dados de clientes por completo e também de forma granular. Para visualizar os registros não precisa estar logado, mas para criar, atualizar, buscar ou remover é preciso estar logado com autenticação JWT.
 
 ## Tecnologias Utilizadas:
--Java
+-Java 11
 
 -Spring Boot, Data, Security
 
